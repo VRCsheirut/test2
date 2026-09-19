@@ -425,15 +425,15 @@ section {
 .concept-vertical-text {
     writing-mode: vertical-rl;
     text-orientation: mixed;
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     letter-spacing: 0.18em;
     color: var(--text-dark);
     line-height: 2.3;
 }
 
 .concept-image-box {
-    width: 450px;
-    height: 300px;
+    width: 480px;
+    height: 320px;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 8px 24px rgba(232, 165, 184, 0.25);
@@ -475,8 +475,8 @@ section {
 }
 
 .concept-footer-image {
-    width: 340px;
-    height: 230px;
+    width: 360px;
+    height: 240px;
     border-radius: 16px;
     overflow: hidden;
     flex-shrink: 0;
@@ -612,7 +612,7 @@ footer p {
     }
 
     section {
-        padding: 1.8rem 1rem;
+        padding: 2rem 1.2rem;
         margin-bottom: 1.8rem;
         border-radius: 16px;
     }
@@ -629,23 +629,23 @@ footer p {
         padding: 0.6rem 0;
     }
 
-    /* Concept スマホ表示最適化 (縦書き維持・上文字 下画像) */
+    /* Concept スマホ表示最適化 (縦書き維持・しっかり目の文字＆拡大画像) */
     .concept-container {
-        gap: 2.5rem;
+        gap: 3rem;
     }
 
     .concept-block, .concept-block:nth-child(even) {
         flex-direction: column;
-        gap: 1.2rem;
+        gap: 1.5rem;
         align-items: center;
     }
 
     .concept-vertical-text {
         writing-mode: vertical-rl;
         text-orientation: mixed;
-        font-size: 0.9rem;
-        line-height: 2.0;
-        letter-spacing: 0.15em;
+        font-size: 1.15rem;
+        line-height: 2.2;
+        letter-spacing: 0.18em;
         margin: 0 auto;
     }
 
@@ -656,25 +656,26 @@ footer p {
 
     .concept-image-box {
         width: 100%;
-        max-width: 340px;
-        height: 220px;
+        max-width: 380px;
+        height: 260px;
     }
 
     .concept-footer-wrapper {
         flex-direction: column;
-        padding: 1.2rem;
+        padding: 1.5rem 1.2rem;
         text-align: center;
+        gap: 1.5rem;
     }
 
     .concept-footer-image {
         width: 100%;
-        max-width: 280px;
-        height: 180px;
+        max-width: 340px;
+        height: 220px;
     }
 
     .concept-footer-text {
-        font-size: 0.9rem;
-        line-height: 1.8;
+        font-size: 0.95rem;
+        line-height: 1.9;
     }
 
     /* 固定BGMウィジェット スマホ微調整 */
