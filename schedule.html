@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>「フィユラプ - Fyulap -」 Schedule</title>
+    <link rel="icon" href="images/icon.png" type="image/png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        section#schedule {
+            max-width: 1200px;
+            margin: 2.5rem auto;
+            background: var(--white-soft, #ffffff);
+            border-radius: 20px;
+            padding: 2.5rem 1.5rem;
+            box-shadow: 0 10px 30px rgba(232, 165, 184, 0.15);
+            border: 1.5px solid #f3dbe0;
+            position: relative;
+        }
+
+        .calendar-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .calendar-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-btn {
+            background: var(--main-pink, #f8dbdb);
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            color: var(--text-dark, #5a4a4a);
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .calendar-btn:hover {
+            background: var(--accent-pink, #e8a5b8);
+            color: #fff;
+        }
+
+        .calendar-title-display {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--deep-pink, #c97389);
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .calendar-table {
+            width: 100%;
+            min-width: 320px;
+            max-width: 850px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .calendar-table th, .calendar-table td {
+            border: 1.5px solid var(--main-pink, #f8dbdb);
+            padding: 0.5rem 0.2rem;
+            height: 55px;
+            vertical-align: middle;
+        }
+
+        .calendar-table th {
+            background-color: #fff0f3;
+            color: var(--deep-pink, #c97389);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <span class="site-title-text">Fyulap</span>
+        </div>
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="メニューを開く">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="header-toolbar" id="header-toolbar">
+            <ul>
+                <li><a href="index.html">top</a></li>
+                <li><a href="index.html#news">news</a></li>
+                <li><a href="howtojoin.html">how to join</a></li>
+                <li><a href="maid.html">maid</a></li>
+                <li><a href="schedule.html">schedule</a></li>
+                <li><a href="attention.html">attention</a></li>
+                <li><a href="contact.html">お問い合わせ</a></li>
+                <li><a href="https://x.com/fyulap" target="_blank" rel="noopener noreferrer" class="sns-btn-circle" title="official X"><img src="images/x.png" alt="X" class="sns-icon-img"></a></li>
+                <li><a href="https://vrchat.com/home/group/grp_969b10f2-5420-49b3-8d13-1778eb145fb4" target="_blank" rel="noopener noreferrer" class="sns-btn-circle" title="VRC Group"><img src="images/vrc.png" alt="VRC" class="sns-icon-img"></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <audio id="bgm-audio" loop preload="metadata">
+        <source src="audio/0102.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="bgm-fixed-widget">
+        <button id="mute-btn" class="mute-btn" title="ミュート切替" aria-label="ミュート切替">
+            <svg id="icon-volume" viewBox="0 0 24 24">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </svg>
+            <svg id="icon-mute" viewBox="0 0 24 24" style="display: none;">
+                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+            </svg>
+        </button>
+        <div class="slider-container">
+            <div id="slider-progress" class="slider-progress"></div>
+            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="0.5" aria-label="音量調整">
+        </div>
+    </div>
+
+    <div class="container">
+        <section id="schedule">
+            <div class="section-title">
+                <h2>Schedule</h2>
+                <span>営業日カレンダー</span>
+            </div>
+            <p style="text-align: center; margin-bottom: 1.5rem; font-size: 0.85rem;">※営業日および開場時間は変更となる場合がございます。</p>
+
+            <div class="calendar-controls">
+                <button id="prev-month" class="calendar-btn">◀ 前の月</button>
+                <span id="current-month-display" class="calendar-title-display"></span>
+                <button id="next-month" class="calendar-btn">次の月 ▶</button>
+            </div>
+
+            <div class="calendar-wrapper">
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th style="color: #e8a5b8;">日</th>
+                            <th>月</th>
+                            <th>火</th>
+                            <th>水</th>
+                            <th>木</th>
+                            <th>金</th>
+                            <th style="color: #9bb7d4;">土</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-sns-links">
+            <a href="https://x.com/fyulap" target="_blank" rel="noopener noreferrer" class="sns-btn-circle" title="official X"><img src="images/x.png" alt="X" class="sns-icon-img"></a>
+            <a href="https://vrchat.com/home/group/grp_969b10f2-5420-49b3-8d13-1778eb145fb4" target="_blank" rel="noopener noreferrer" class="sns-btn-circle" title="VRC Group"><img src="images/vrc.png" alt="VRC" class="sns-icon-img"></a>
+        </div>
+        <p>© Fyulap All Rights Reserved. しぇいる / Photo by 藍香</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('fade-in');
+
+            const links = document.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    const isAnchor = href && (href.startsWith('#') || href.includes('index.html#'));
+                    
+                    if (href && !isAnchor && !href.startsWith('http') && href !== '' && href !== '#') {
+                        e.preventDefault();
+                        document.body.classList.remove('fade-in');
+                        document.body.classList.add('fade-out');
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 400);
+                    }
+                });
+            });
+
+            const menuToggle = document.getElementById('menu-toggle');
+            const headerToolbar = document.getElementById('header-toolbar');
+
+            menuToggle.addEventListener('click', () => {
+                headerToolbar.classList.toggle('is-open');
+            });
+
+            const bgmScript = document.createElement('script');
+            bgmScript.src = 'bgm.js';
+            document.body.appendChild(bgmScript);
+
+            const calendarBody = document.getElementById('calendar-body');
+            const currentMonthDisplay = document.getElementById('current-month-display');
+            const prevBtn = document.getElementById('prev-month');
+            const nextBtn = document.getElementById('next-month');
+
+            let currentDate = new Date(2026, 8, 1);
+            const baseDate = new Date(2026, 8, 8);
+            baseDate.setHours(0, 0, 0, 0);
+
+            function isBiweeklyTuesday(targetDate) {
+                targetDate.setHours(0, 0, 0, 0);
+                const diffTime = targetDate.getTime() - baseDate.getTime();
+                const diffDays = Math.round(diffTime / (1000 * 3600 * 24));
+                return diffDays >= 0 && diffDays % 14 === 0;
+            }
+
+            function renderCalendar(date) {
+                const year = date.getFullYear();
+                const month = date.getMonth();
+
+                currentMonthDisplay.textContent = `${year}年 ${month + 1}月`;
+                calendarBody.innerHTML = '';
+
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                let dateCount = 1;
+                let html = '';
+
+                for (let i = 0; i < 6; i++) {
+                    let row = '<tr>';
+                    let hasDate = false;
+
+                    for (let j = 0; j < 7; j++) {
+                        if ((i === 0 && j < firstDay) || dateCount > daysInMonth) {
+                            row += '<td></td>';
+                        } else {
+                            hasDate = true;
+
+                            let colorStyle = '';
+                            if (j === 0) colorStyle = 'color: #e8a5b8;';
+                            if (j === 6) colorStyle = 'color: #9bb7d4;';
+
+                            const thisDate = new Date(year, month, dateCount);
+                            const showTulip = isBiweeklyTuesday(thisDate);
+                            const tulipMark = showTulip 
+                                ? '<div style="font-size: 0.9em; margin-top: 2px;">🌷</div>' 
+                                : '';
+
+                            row += `
+                                <td style="${colorStyle} vertical-align: top; padding: 6px 2px;">
+                                    <strong>${dateCount}</strong>
+                                    ${tulipMark}
+                                </td>`;
+                            
+                            dateCount++;
+                        }
+                    }
+                    row += '</tr>';
+                    if (hasDate) html += row;
+                }
+                calendarBody.innerHTML = html;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar(currentDate);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar(currentDate);
+            });
+
+            renderCalendar(currentDate);
+        });
+    </script>
+</body>
+</html>
